@@ -3,7 +3,12 @@ import { formatDate, DatePipe } from "@angular/common";
 import { Cliente } from "./cliente";
 import { CLIENTES } from "./clientes.json";
 import { of, Observable, throwError } from "rxjs";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpRequest,
+  HttpEvent,
+} from "@angular/common/http";
 import { catchError, map, tap } from "rxjs/operators";
 
 import swal from "sweetalert2";
@@ -19,21 +24,18 @@ export class ClienteService {
   private httpHeaders = new HttpHeaders({ "Content-Type": "application/json" });
   constructor(private http: HttpClient, private router: Router) {}
 
-  getClientes(): Observable<Cliente[]> {
+  getClientes(page: number): Observable<any> {
     //convertimos - creamos nuestro flujo Observable a partir de los objetos
     //return of(CLIENTES);
-    return this.http.get(this.urlEndPoint).pipe(
-      tap((response) => {
-        let clientes = response as Cliente[];
+    return this.http.get(this.urlEndPoint + "/page/" + page).pipe(
+      tap((response: any) => {
         console.log("ClienteService: tap 1");
-        clientes.forEach((cliente) => {
+        (response.content as Cliente[]).forEach((cliente) => {
           console.log(cliente.nombre);
         });
       }),
-      map((response) => {
-        let clientes = response as Cliente[];
-
-        return clientes.map((cliente) => {
+      map((response: any) => {
+        (response.content as Cliente[]).map((cliente) => {
           cliente.nombre = cliente.nombre.toUpperCase();
 
           let datePipe = new DatePipe("es");
@@ -50,10 +52,11 @@ export class ClienteService {
           //);
           return cliente;
         });
+        return response;
       }),
       tap((response) => {
         console.log("ClienteService: tap 2");
-        response.forEach((cliente) => {
+        (response.content as Cliente[]).forEach((cliente) => {
           console.log(cliente.nombre);
         });
       })
@@ -119,5 +122,22 @@ export class ClienteService {
           return throwError(e);
         })
       );
+  }
+
+  subirFoto(archivo: File, id: any): Observable<HttpEvent<{}>> {
+    let formData = new FormData();
+    formData.append("archivo", archivo);
+    formData.append("id", id);
+
+    const req = new HttpRequest(
+      "POST",
+      `${this.urlEndPoint}/upload`,
+      formData,
+      {
+        reportProgress: true,
+      }
+    );
+
+    return this.http.request(req);
   }
 }

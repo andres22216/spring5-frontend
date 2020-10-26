@@ -7,6 +7,7 @@ export const CLIENTES: Cliente[] = [
     apellido: "Ortiz Gallego",
     email: "andres22216@yahoo.es",
     createAt: "2020-12-11",
+    foto: "prueba.jpg",
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ export const CLIENTES: Cliente[] = [
     apellido: "Ortiz Gallego",
     email: "marioog230@hotmail.com",
     createAt: "2020-12-11",
+    foto: "prueba.jpg",
   },
   {
     id: 3,
@@ -21,6 +23,7 @@ export const CLIENTES: Cliente[] = [
     apellido: "Gallego Jaramillo",
     email: "patricia1205@gmail.com",
     createAt: "2020-12-11",
+    foto: "prueba.jpg",
   },
   {
     id: 4,
@@ -28,6 +31,7 @@ export const CLIENTES: Cliente[] = [
     apellido: "Ortiz Montoya",
     email: "mauroedgar1963@gmail.com",
     createAt: "2020-12-11",
+    foto: "prueba.jpg",
   },
   {
     id: 5,
@@ -35,6 +39,7 @@ export const CLIENTES: Cliente[] = [
     apellido: "Jaramillo Rodriguez",
     email: "cruz@gmail.com",
     createAt: "2020-12-11",
+    foto: "prueba.jpg",
   },
 
   {
@@ -43,5 +48,6 @@ export const CLIENTES: Cliente[] = [
     apellido: "Ossa",
     email: "pachito@gmail.com",
     createAt: "2020-12-11",
+    foto: "prueba.jpg",
   },
 ];
