@@ -8,6 +8,10 @@ export const CLIENTES: Cliente[] = [
     email: "andres22216@yahoo.es",
     createAt: "2020-12-11",
     foto: "prueba.jpg",
+    region: {
+      id: 1,
+      nombre: "Suramerica",
+    },
   },
   {
     id: 2,
@@ -16,6 +20,10 @@ export const CLIENTES: Cliente[] = [
     email: "marioog230@hotmail.com",
     createAt: "2020-12-11",
     foto: "prueba.jpg",
+    region: {
+      id: 1,
+      nombre: "Suramerica",
+    },
   },
   {
     id: 3,
@@ -24,6 +32,10 @@ export const CLIENTES: Cliente[] = [
     email: "patricia1205@gmail.com",
     createAt: "2020-12-11",
     foto: "prueba.jpg",
+    region: {
+      id: 1,
+      nombre: "Suramerica",
+    },
   },
   {
     id: 4,
@@ -32,6 +44,10 @@ export const CLIENTES: Cliente[] = [
     email: "mauroedgar1963@gmail.com",
     createAt: "2020-12-11",
     foto: "prueba.jpg",
+    region: {
+      id: 1,
+      nombre: "Suramerica",
+    },
   },
   {
     id: 5,
@@ -40,6 +56,10 @@ export const CLIENTES: Cliente[] = [
     email: "cruz@gmail.com",
     createAt: "2020-12-11",
     foto: "prueba.jpg",
+    region: {
+      id: 1,
+      nombre: "Suramerica",
+    },
   },
 
   {
@@ -49,5 +69,9 @@ export const CLIENTES: Cliente[] = [
     email: "pachito@gmail.com",
     createAt: "2020-12-11",
     foto: "prueba.jpg",
+    region: {
+      id: 1,
+      nombre: "Suramerica",
+    },
   },
 ];

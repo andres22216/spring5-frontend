@@ -3,6 +3,7 @@ import { formatDate, DatePipe } from "@angular/common";
 import { Cliente } from "./cliente";
 import { CLIENTES } from "./clientes.json";
 import { of, Observable, throwError } from "rxjs";
+import { Region } from "./Region";
 import {
   HttpClient,
   HttpHeaders,
@@ -23,6 +24,22 @@ export class ClienteService {
 
   private httpHeaders = new HttpHeaders({ "Content-Type": "application/json" });
   constructor(private http: HttpClient, private router: Router) {}
+
+  private isNoAutorizado(e): boolean {
+    if (e.status == 401 || e.status == 403) {
+      this.router.navigate(["/login"]);
+      return true;
+    }
+  }
+
+  getRegiones(): Observable<Region[]> {
+    return this.http.get<Region[]>(this.urlEndPoint + "/regiones").pipe(
+      catchError((e) => {
+        this.isNoAutorizado(e);
+        return throwError(e);
+      })
+    );
+  }
 
   getClientes(page: number): Observable<any> {
     //convertimos - creamos nuestro flujo Observable a partir de los objetos
@@ -71,6 +88,10 @@ export class ClienteService {
       .pipe(
         map((response: any) => response.cliente as Cliente),
         catchError((e) => {
+          if (this.isNoAutorizado(e)) {
+            return throwError(e);
+          }
+
           if (e.status == 400) {
             return throwError(e);
           }
@@ -85,6 +106,9 @@ export class ClienteService {
   getCliente(id: number): Observable<Cliente> {
     return this.http.get<Cliente>(`${this.urlEndPoint}/${id}`).pipe(
       catchError((e) => {
+        if (this.isNoAutorizado(e)) {
+          return throwError(e);
+        }
         this.router.navigate(["/clientes"]);
         console.error(e.error.mensaje);
         swal.fire("Error al editar", e.error.mensaje, "error");
@@ -100,6 +124,9 @@ export class ClienteService {
       })
       .pipe(
         catchError((e) => {
+          if (this.isNoAutorizado(e)) {
+            return throwError(e);
+          }
           if (e.status == 400) {
             return throwError(e);
           }
@@ -117,6 +144,9 @@ export class ClienteService {
       })
       .pipe(
         catchError((e) => {
+          if (this.isNoAutorizado(e)) {
+            return throwError(e);
+          }
           console.error(e.error.mensaje);
           swal.fire(e.error.mensaje, e.error.error, "error");
           return throwError(e);
@@ -138,6 +168,11 @@ export class ClienteService {
       }
     );
 
-    return this.http.request(req);
+    return this.http.request(req).pipe(
+      catchError((e) => {
+        this.isNoAutorizado(e);
+        return throwError(e);
+      })
+    );
   }
 }
