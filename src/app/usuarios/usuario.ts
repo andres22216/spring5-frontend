@@ -1,4 +1,5 @@
 export class Usuario {
+    //comentaio
     id: number;
     username: string;
     password: string;
